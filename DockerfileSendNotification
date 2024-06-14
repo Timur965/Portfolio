@@ -1,0 +1,12 @@
+FROM golang:latest 
+
+WORKDIR /app
+
+# Сначала копируем файлы зависимостей
+COPY . .
+
+# Сборка приложения
+RUN cd SendNotification && go build -o bin .
+
+# Задаем точку входа
+ENTRYPOINT ["/app/SendNotification/bin"] 

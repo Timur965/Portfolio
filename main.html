@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Пользователи</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="body1">
+  <div class="container1">
+    <div class="buttons">
+      <a href="/logout" class="logout-button">Выйти</a>
+      {{if .MeRecNotif}}
+        <a href="/main.html?Notifications=false" class="notifications-button">Не получать уведомления</a>
+      {{else}}
+      <form action="/main.html" method="get">
+        <input type="hidden" name="Notifications" value="true">
+        <input type="number" name="NotificationDays" min="1" required placeholder="За сколько дней?">
+        <button type="submit" class="notifications-button">Получать уведомления</button>
+      </form>
+      {{end}}
+    </div>
+    <h1>Наши пользователи</h1>
+    {{range .UsersWithoutMe}}
+    <div class="user-card">
+      <div class="user-info">
+        <div class="user-name">{{.Username}}</div>
+        <div class="user-email">{{.Email}}</div>
+      </div>
+      {{if .Subscribe}}
+        <a href="/main.html?DelSubscribed={{.Username}}" class="subscribe-button">Отписаться</a>
+      {{else}}
+        <a href="/main.html?Subscribed={{.Username}}" class="subscribe-button">Подписаться</a>
+      {{end}}
+    </div>
+    {{end}}
+</body>
+</html>
